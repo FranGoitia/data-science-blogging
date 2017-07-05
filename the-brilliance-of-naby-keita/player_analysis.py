@@ -160,7 +160,7 @@ class PlayerAnalysis:
         h.set_yticklabels(h.get_yticklabels(), rotation=-360)
         plt.show()
 
-    def threshold_analysis(self, columns, file_name, tolerance={}):
+    def threshold_analysis(self, tolerance):
         player_df = self.players_df[(self.players_df['player_name'] == self.player.name) & (self.players_df['league_id'] == self.player_league.id)]
         df = self.players_df
         for col in TEMPLATES[self.player.position_type]:
@@ -195,11 +195,8 @@ def naby_keita_profile():
     analysis = PlayerAnalysis(df, player, league, leagues)
     analysis.plot_stats()
     analysis.clusterize()
-    analysis.threshold_analysis(TEMPLATES[player.position_type], 'ofensive_profile.xlsx',
-                                {'dribbles_won': 1, 'tackles_won_adj': 1, 'interceptions_adj': 1, 'blocks': 1,
-                                 'errors_to_goal': 1})
-    analysis.threshold_analysis(TEMPLATES[player.position_type], 'defensive_profile.xlsx',
-                                {'dribbles_won': 1, 'goals': 1, 'shots_ot': 1, 'big_chances_created': 1,
+    analysis.threshold_analysis({'dribbles_won': 1, 'tackles_won_adj': 1, 'interceptions_adj': 1, 'blocks': 1, 'errors_to_goal': 1})
+    analysis.threshold_analysis({'dribbles_won': 1, 'goals': 1, 'shots_ot': 1, 'big_chances_created': 1,
                                  'acc_through_balls': 1, 'key_passes': 1, 'assists': 1,
                                  'dribbles_won': 1, 'interceptions_adj': 0.1})
 
